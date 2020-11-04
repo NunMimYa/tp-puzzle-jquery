@@ -30,18 +30,22 @@
         <div class="square">14</div>
         <div class="square">15</div>
     </div>
+
+    <p class="moves"></p>
+    <p class="timer"></p>
     <style>
-        .container{
+        .container {
             display: flex;
             flex-wrap: wrap;
             /*flex-direction: column;*/
             align-content: center;
             width: 488px;
-            border:3px green solid ;
+            border: 3px green solid;
             background-color: chartreuse;
-            
+
         }
-        .square{
+
+        .square {
             position: relative;
             width: 111px;
             height: 111px;
@@ -50,11 +54,48 @@
             margin: 1px;
             cursor: pointer;
         }
-
+        p{
+            font-weight: bold;
+        }
     </style>
     <script>
-        $('.square').click(function(){
+
+        var i = 0;
+        var t;
+        var ms = 0, s = 0, mn = 0, h = 0;
+
+        function start() {
+            t = setInterval(update_chrono, 100);
+        }
+
+        function update_chrono() {
+            ms += 1;
+            if (ms == 10) {
+                ms = 1;
+                s += 1;
+            }
+            if (s == 60) {
+                s = 0;
+                mn += 1;
+            }
+            if (mn == 60) {
+                mn = 0;
+                h += 1;
+            }
+            $('.timer').html(h + ":" + mn + ":" + s + ":" + ms);
+        }
+
+
+
+        $('.square').click(function () {
+            i++;
             $(this)
+            $('.moves').html("moves :" + i);
+
+            if (ms === 0) {
+                start();
+            }
+
         });
 
     </script>
